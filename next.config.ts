@@ -6,6 +6,9 @@ const nextConfig = {
   eslint: {
     ignoreDuringBuilds: true,
   },
+  experimental: {
+    optimizeCss: false,  //THIS disables lightningcss
+  },
 };
 
 module.exports = nextConfig;
