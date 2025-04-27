@@ -25,6 +25,7 @@ export default function Header() {
                 {isLoggedIn && (
                     <>
                         <Link className="btn btn-outline-light btn-sm" href="/jobs">Jobs</Link>
+                        <Link className="btn btn-outline-light btn-sm" href="/resumes">Resumes</Link>
                         <Link className="btn btn-outline-light btn-sm" href="/logout">Logout</Link>
                     </>
                 )}
