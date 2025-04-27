@@ -147,31 +147,39 @@ export default function ResumeList() {
             {resumes.map((resume) => (
               <li
                 key={resume._id}
-                className={`list-group-item d-flex justify-content-between align-items-center ${resume.isMaster ? 'bg-success text-white' : ''}`}
+                className={`list-group-item d-flex justify-content-between align-items-center shadow rounded p-3 mb-3 border-0
+                ${resume.isMaster ? 'bg-success text-white' : 'bg-light'}`}
               >
                 <div>
                   <h5>
-                    {resume.originalName}{' '}
-                    {resume.isMaster && <span className="badge bg-light text-dark ms-2">Master</span>}
+                    <a href={`/resumes/${resume._id}`} className={resume.isMaster ? 'text-white text-decoration-underline' : 'text-dark text-decoration-underline'}>
+                      {resume.originalName}
+                    </a>
+                    {resume.isMaster && (
+                      <span className="badge bg-light text-dark ms-2 px-3 py-2 fs-6">
+                        Master
+                      </span>
+                    )}
                   </h5>
                   <p><small>Uploaded: {new Date(resume.createdAt).toLocaleString()}</small></p>
                   <p><small>Is Master: {resume.isMaster ? 'Yes' : 'No'}</small></p>
                 </div>
                 <div>
                   <button
-                    className="btn btn-light btn-sm me-2"
+                    className={`btn ${resume.isMaster ? 'btn-light' : 'btn-primary'} btn-sm me-2`}
                     onClick={() => openUpdateModal(resume._id)}
                   >
                     Update
                   </button>
                   <button
-                    className="btn btn-warning btn-sm"
+                    className={`btn ${resume.isMaster ? 'btn-warning' : 'btn-danger'} btn-sm`}
                     onClick={() => handleDelete(resume._id)}
                   >
                     Delete
                   </button>
                 </div>
               </li>
+
             ))}
           </ul>
 
