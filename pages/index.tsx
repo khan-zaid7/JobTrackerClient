@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import api from '../utils/api';
 import { useRouter } from 'next/router';
 import Layout from '../components/Layout';
+import Link from 'next/link';
 
 export default function Home() {
   const [user, setUser] = useState<any>(null);
@@ -40,6 +41,18 @@ export default function Home() {
       <div className="text-center mt-4">
         <h1>Welcome {user?.name}</h1>
         <p>Email: {user?.email}</p>
+
+        <div className="d-flex justify-content-center gap-3 mt-4">
+          <Link href="/jobs" className="btn btn-primary">
+            Manage Jobs
+          </Link>
+          <Link href="/resumes" className="btn btn-success">
+            Manage Resumes
+          </Link>
+          <Link href="/match" className="btn btn-warning">
+            Match Resume
+          </Link>
+        </div>
       </div>
     </Layout>
   );
