@@ -23,6 +23,9 @@ export default function MatchResume() {
   const [selectedJobId, setSelectedJobId] = useState('');
   const [matchResult, setMatchResult] = useState<any>(null);
   const [loading, setLoading] = useState(false);
+  const [tailorEnabled, setTailorEnabled] = useState(false);
+  const TAILOR_THRESHOLD = 60;
+
 
   const fetchResumes = async () => {
     const res = await api.get('/resumes');
@@ -44,30 +47,48 @@ export default function MatchResume() {
       alert('Select both resume and job!');
       return;
     }
-
+  
     const selectedResume = resumes.find(r => r._id === selectedResumeId);
     const selectedJob = jobs.find(j => j._id === selectedJobId);
-
+  
     if (!selectedResume || !selectedJob) {
       alert('Invalid selection.');
       return;
     }
-
+  
     setLoading(true);
     try {
-      const response = await api.post('/match/match-resume', {
-        jobDescription: selectedJob.description,     // ✅ Full job description
-        resumeText: selectedResume.textContent       // ✅ Full cleaned resume text
+      const matchRes = await api.post('/match/match-resume', {
+        jobId: selectedJob._id,
+        resumeId: selectedResume._id,
+        jobDescription: selectedJob.description,
+        resumeText: selectedResume.textContent
       });
-
-      setMatchResult(response.data);
+  
+      const matchData = matchRes.data;
+  
+      let tailoredResume = null;
+  
+      if (tailorEnabled && matchData.score >= TAILOR_THRESHOLD) {
+        const tailorRes = await api.post('/match/tailor-resume', {
+          matchResultId: matchData._id 
+        });
+        tailoredResume = tailorRes.data.tailoredResume;
+      }
+  
+      setMatchResult({
+        ...matchData,
+        tailoredResume,
+      });
+  
     } catch (error) {
       console.error('Match error:', error);
-      alert('Failed to match resume.');
+      alert('Failed to match or tailor resume.');
     } finally {
       setLoading(false);
     }
   };
+  
 
   return (
     <Layout>
@@ -96,6 +117,19 @@ export default function MatchResume() {
               </option>
             ))}
           </select>
+        </div>
+
+        <div className="form-check mb-3">
+          <input
+            className="form-check-input"
+            type="checkbox"
+            checked={tailorEnabled}
+            onChange={() => setTailorEnabled(!tailorEnabled)}
+            id="tailorResumeCheck"
+          />
+          <label className="form-check-label" htmlFor="tailorResumeCheck">
+            Customize resume if score ≥ {TAILOR_THRESHOLD}
+          </label>
         </div>
 
         <button className="btn btn-primary" onClick={handleMatch} disabled={loading}>
