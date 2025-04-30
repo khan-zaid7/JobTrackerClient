@@ -1,5 +1,5 @@
 import { diffLines } from 'diff';
-import '../public/css/ResumeDiff.css'; // optional
+
 interface ResumeDiffProps {
     original: string;
     tailored: string;
