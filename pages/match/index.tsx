@@ -57,6 +57,7 @@ export default function MatchResume() {
     }
   
     setLoading(true);
+  
     try {
       const matchRes = await api.post('/match/match-resume', {
         jobId: selectedJob._id,
@@ -67,13 +68,23 @@ export default function MatchResume() {
   
       const matchData = matchRes.data;
   
-      let tailoredResume = null;
+      let tailoredResume: string | null = null;
+      let pdfUrl: string | null = null;
   
       if (tailorEnabled && matchData.score >= TAILOR_THRESHOLD) {
         const tailorRes = await api.post('/match/tailor-resume', {
-          matchResultId: matchData._id 
+          matchResultId: matchData._id
         });
+  
         tailoredResume = tailorRes.data.tailoredResume;
+        pdfUrl = tailorRes.data.pdfUrl;
+  
+        if (pdfUrl) {
+          const link = document.createElement('a');
+          link.href = pdfUrl;
+          link.download = 'tailored_resume.pdf';
+          link.click();
+        }
       }
   
       setMatchResult({
@@ -87,9 +98,8 @@ export default function MatchResume() {
     } finally {
       setLoading(false);
     }
-  };
+  };  
   
-
   return (
     <Layout>
       <div className="container mt-4">
