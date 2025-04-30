@@ -1,0 +1,32 @@
+/* ResumeDiff.css */
+.resume-diff-table table {
+    width: 100%;
+    border-collapse: collapse;
+    font-family: monospace;
+    font-size: 13px;
+  }
+  
+  .resume-diff-table th {
+    background: #f0f0f0;
+    padding: 8px;
+    text-align: left;
+  }
+  
+  .resume-diff-table td {
+    vertical-align: top;
+    padding: 4px 8px;
+    white-space: pre-wrap;
+  }
+  
+  .resume-diff-table .added {
+    background-color: #e6ffed;
+  }
+  
+  .resume-diff-table .removed {
+    background-color: #ffeef0;
+  }
+  
+  .resume-diff-table .empty {
+    background-color: #f9f9f9;
+  }
+  
