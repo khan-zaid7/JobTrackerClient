@@ -52,6 +52,9 @@ export default function Home() {
           <Link href="/match" className="btn btn-warning">
             Match Resume
           </Link>
+          <Link href="/scrapers" className="btn btn-danger">
+            Scrapers
+          </Link>
         </div>
       </div>
     </Layout>
