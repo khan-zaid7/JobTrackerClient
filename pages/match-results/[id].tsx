@@ -10,7 +10,6 @@ export default function MatchResultDetail() {
   const router = useRouter();
   const { id } = router.query;
   const [data, setData] = useState<any>(null);
-  console.log('something');
   useEffect(() => {
     if (id) {
       api.get(`/match-results/${id}`).then(res => setData(res.data));
