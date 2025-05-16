@@ -132,7 +132,8 @@ export default function LinkedInScraper() {
 
         {jobs.length > 0 && (
           <div className="mt-4 space-y-8">
-            {/* Filtered Jobs */}
+
+            {/* ✅ Matched Jobs */}
             <div>
               <h4 className="text-xl font-bold mb-2 text-green-700">✅ Matched Jobs</h4>
               <ul>
@@ -156,11 +157,40 @@ export default function LinkedInScraper() {
               </ul>
             </div>
 
-            {/* Rejected Jobs */}
+            {/* ⚠️ Borderline Jobs */}
+            <div>
+              <h4 className="text-xl font-bold mb-2 text-yellow-700">⚠️ Borderline Matches</h4>
+              <ul>
+                {jobs.filter(job => !job.isRelevant && !job.is_deleted).map((job) => (
+                  <li
+                    key={job._id}
+                    className="mb-4 p-3 rounded-md border border-yellow-300 bg-yellow-50 shadow-sm"
+                  >
+                    <div className="font-semibold text-lg">{job.title}</div>
+                    <div className="text-sm text-gray-600 mb-1">{job.companyName}</div>
+                    <a
+                      href={job.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-blue-600 underline text-sm"
+                    >
+                      View Job
+                    </a>
+                    {job.rejectionReason && (
+                      <div className="mt-2 text-yellow-800 text-sm font-medium">
+                        ⚠️ Reason: {job.rejectionReason}
+                      </div>
+                    )}
+                  </li>
+                ))}
+              </ul>
+            </div>
+
+            {/* ❌ Rejected Jobs */}
             <div>
               <h4 className="text-xl font-bold mb-2 text-red-700">❌ Rejected Jobs</h4>
               <ul>
-                {jobs.filter(job => !job.isRelevant).map((job) => (
+                {jobs.filter(job => job.is_deleted).map((job) => (
                   <li
                     key={job._id}
                     className="mb-4 p-3 rounded-md border border-red-200 bg-red-50 shadow-sm"
@@ -184,8 +214,10 @@ export default function LinkedInScraper() {
                 ))}
               </ul>
             </div>
+
           </div>
         )}
+
 
       </div>
     </Layout>
