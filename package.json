@@ -9,6 +9,8 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@tiptap/react": "^3.1.0",
+    "@tiptap/starter-kit": "^3.1.0",
     "axios": "^1.8.4",
     "bootstrap": "^5.3.5",
     "diff": "^7.0.0",
@@ -18,7 +20,8 @@
     "postcss-flexbugs-fixes": "^5.0.2",
     "postcss-preset-env": "^10.1.6",
     "react": "^19.0.0",
-    "react-dom": "^19.0.0"
+    "react-dom": "^19.0.0",
+    "react-router-dom": "^7.8.0"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3",

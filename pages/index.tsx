@@ -41,6 +41,7 @@ export default function Home() {
       <div className="text-center mt-4">
         <h1>Welcome {user?.name}</h1>
         <p>Email: {user?.email}</p>
+        <p>Role: {user?._id}</p>
 
         <div className="d-flex justify-content-center gap-3 mt-4">
           <Link href="/jobs" className="btn btn-primary">

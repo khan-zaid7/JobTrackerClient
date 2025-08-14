@@ -51,7 +51,7 @@ export default function Header() {
                   <Link className="nav-link" href="/match">Match</Link>
                 </li>
                 <li className="nav-item">
-                  <Link className="nav-link" href="/match-results">Match Results</Link>
+                  <Link className="nav-link" href="/campaign">Campaign</Link>
                 </li>
                 <li className="nav-item">
                   <Link className="nav-link" href="/logout">Logout</Link>
